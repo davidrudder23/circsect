@@ -15,12 +15,19 @@ public abstract class Circle {
 
     Color color;
 
-    public void render (Batch batch) {
+    public void render(Batch batch) {
         ShapeRenderer sr = new ShapeRenderer();
-        sr.setColor(color);
 
         sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(color);
         sr.circle(x, y, radius);
         sr.end();
+    }
+
+    public int distanceFrom(Circle circle) {
+        return (int) Math.sqrt(
+                ((getX() - circle.getX()) * (getX() - circle.getX())) +
+                        ((getY() - circle.getY()) * (getY() - circle.getY()))
+        );
     }
 }

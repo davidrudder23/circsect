@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Timer;
 
 public class Explosion extends Circle {
-    Timer.Task timer;
     int speedMultiplier;
     Game game;
 
-    long start;
+    boolean enabled;
+
+    int direction;
 
     public Explosion(Game game, int x, int y, Color color) {
         super (x, y, 1, color);
@@ -16,27 +17,21 @@ public class Explosion extends Circle {
         this.game = game;
         speedMultiplier = 3;
 
-        timer = Timer.schedule(new Timer.Task() {
-                                   @Override
-                                   public void run() {
-                                       clockTick(1 / 10.0f);
-                                   }
-                               }
-                , 0f, 1 / (10.0f * speedMultiplier));
+        enabled = true;
 
-        start = System.currentTimeMillis();
+        direction = 1;
     }
 
     public void clockTick(float delay) {
-        radius += delay * speedMultiplier/game.getSmallestDimensionPercent();
-
-        if (radius > (10/game.getSmallestDimensionPercent())) {
-            game.removeExplosion(this);
-            timer.cancel();
-            radius = 0;
-
-            System.out.println("Took "+(System.currentTimeMillis() - start));
+        if (radius > (15/game.getSmallestDimensionPercent())) {
+            direction = -1;
         }
+
+        if (radius < 1) {
+            enabled = false;
+        }
+
+        radius += delay * speedMultiplier/game.getSmallestDimensionPercent() * direction;
 
     }
 }

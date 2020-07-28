@@ -7,25 +7,17 @@ import com.badlogic.gdx.utils.Timer;
 public class Enemy extends Circle {
 
     int angle;
-    Timer.Task timer;
-    int speedMultiplier;
+    float speedMultiplier;
 
     public Enemy(int x, int y, float radius, Color color, int angle) {
         super(x, y, radius, color);
 
         this.angle = angle;
 
-        speedMultiplier = 2;
-        timer = Timer.schedule(new Timer.Task() {
-                                   @Override
-                                   public void run() {
-                                       clockTick(1 / 10.0f);
-                                   }
-                               }
-                , 0f, 1 / (10.0f * speedMultiplier));
+        speedMultiplier = 10f;
     }
 
-    private void clockTick(float delta) {
+    public void clockTick(float delta) {
         //System.out.println("angle="+angle+" delta="+delta+" calc="+ ((int)(Math.sin(angle) * speedMultiplier)));
         x = x + (int) (Math.cos((Math.PI*angle)/180) * speedMultiplier);
         y = y + (int) (Math.sin((Math.PI*angle)/180) * speedMultiplier);

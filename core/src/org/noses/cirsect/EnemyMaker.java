@@ -63,9 +63,6 @@ public class EnemyMaker {
     }
 
     private static int distance(Enemy enemy1, Enemy enemy2) {
-        return (int) Math.sqrt(
-                ((enemy1.getX() - enemy2.getX()) * (enemy1.getX() - enemy2.getX())) +
-                        ((enemy1.getY() - enemy2.getY()) * (enemy1.getY() - enemy2.getY()))
-        );
+        return enemy1.distanceFrom(enemy2);
     }
 }
