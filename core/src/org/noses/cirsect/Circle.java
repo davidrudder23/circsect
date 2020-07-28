@@ -11,7 +11,7 @@ import lombok.Data;
 public abstract class Circle {
 
     int x, y;
-    int radius;
+    float radius;
 
     Color color;
 

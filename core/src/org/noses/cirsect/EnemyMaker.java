@@ -8,6 +8,8 @@ import java.util.List;
 
 public class EnemyMaker {
 
+    private static EnemyMaker instance;
+
     private static List<Color> colors;
 
     static {
@@ -23,14 +25,27 @@ public class EnemyMaker {
 
     }
 
-    public static Enemy makeEnemy(List<Enemy> existingEnemies) {
+    private Game game;
+
+    public static EnemyMaker getInstance(Game game) {
+        if (instance == null) {
+            instance = new EnemyMaker(game);
+        }
+
+        return instance;
+    }
+    public EnemyMaker(Game game) {
+        this.game = game;
+    }
+
+    public Enemy makeEnemy(List<Enemy> existingEnemies) {
         boolean found = false;
         Enemy enemy = null;
 
         while (!found) {
-            int radius = (int)(Math.random() * 5) + 5;
-            int x = (int) (Math.random() * (Gdx.graphics.getWidth()-radius))+radius;
-            int y = (int) (Math.random() * (Gdx.graphics.getHeight()-radius))+radius;
+            float radius = (float)((Math.random() * 1.2) + 1.2) / game.getSmallestDimensionPercent();
+            int x = (int)((Math.random() * (Gdx.graphics.getWidth()-radius))+radius);
+            int y = (int)((Math.random() * (Gdx.graphics.getHeight()-radius))+radius);
             int angle = (int)(Math.random() * 360);
 
             Color color = colors.get((int)(Math.random()*colors.size()));

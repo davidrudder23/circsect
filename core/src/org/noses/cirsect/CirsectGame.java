@@ -14,16 +14,40 @@ public class CirsectGame extends ApplicationAdapter {
 	int score;
 
 	Game game;
-	
+
+	float percentPerPixelWidth;
+	float percentPerPixelHeight;
+	float smallestDimensionPercent;
+
+	int smallestDimensionPixels;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+
+		updateDimensions();
 
 		game = new Game(this);
 		score = 0;
 
 		Sound backgroundLoop = Gdx.audio.newSound(Gdx.files.internal("music.mp3"));
 		backgroundLoop.loop();
+	}
+
+	private void updateDimensions() {
+		percentPerPixelWidth = 100f/Gdx.graphics.getWidth();
+		percentPerPixelHeight = 100f/Gdx.graphics.getHeight();
+		smallestDimensionPercent = percentPerPixelWidth;
+		if (percentPerPixelHeight < smallestDimensionPercent) {
+			smallestDimensionPercent = percentPerPixelHeight;
+		}
+
+		System.out.println("smallestDimensionPercent="+smallestDimensionPercent);
+
+		smallestDimensionPixels = Gdx.graphics.getWidth();
+		if (Gdx.graphics.getHeight() < smallestDimensionPixels) {
+			smallestDimensionPixels = Gdx.graphics.getHeight();
+		}
 	}
 
 	@Override
@@ -47,4 +71,9 @@ public class CirsectGame extends ApplicationAdapter {
 		score += score;
 	}
 
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+		updateDimensions();
+	}
 }

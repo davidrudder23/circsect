@@ -10,12 +10,12 @@ public class Enemy extends Circle {
     Timer.Task timer;
     int speedMultiplier;
 
-    public Enemy(int x, int y, int radius, Color color, int angle) {
+    public Enemy(int x, int y, float radius, Color color, int angle) {
         super(x, y, radius, color);
 
         this.angle = angle;
 
-        speedMultiplier = 10;
+        speedMultiplier = 2;
         timer = Timer.schedule(new Timer.Task() {
                                    @Override
                                    public void run() {
@@ -31,16 +31,16 @@ public class Enemy extends Circle {
         y = y + (int) (Math.sin((Math.PI*angle)/180) * speedMultiplier);
 
         if (x < radius) {
-            x = radius+1;
+            x = (int)radius+1;
             angle = 180 - angle;
         } else if (x > (Gdx.graphics.getWidth() - radius)) {
-            x = Gdx.graphics.getWidth() - radius;
+            x = Gdx.graphics.getWidth() - (int)radius;
             angle = 180 - angle;
         } else if (y < radius) {
-            y =  radius+1;
+            y =  (int)radius+1;
             angle = 360 - angle;
-        } else if (y > (Gdx.graphics.getHeight() - radius)) {
-            y = Gdx.graphics.getHeight() - radius;
+        } else if (y > (Gdx.graphics.getHeight() - (int)radius)) {
+            y = Gdx.graphics.getHeight() - (int)radius;
             angle = 360 - angle;
         }
 
