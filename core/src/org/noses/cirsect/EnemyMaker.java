@@ -18,11 +18,10 @@ public class EnemyMaker {
         colors.add(Color.BLUE);
         colors.add(Color.CHARTREUSE);
         colors.add(Color.LIME);
-        colors.add(Color.OLIVE);
+        colors.add(Color.PURPLE);
         colors.add(Color.ORANGE);
         colors.add(Color.CORAL);
         colors.add(Color.CYAN);
-
     }
 
     private Game game;
@@ -62,7 +61,7 @@ public class EnemyMaker {
         return enemy;
     }
 
-    private static int distance(Enemy enemy1, Enemy enemy2) {
+    private static float distance(Enemy enemy1, Enemy enemy2) {
         return enemy1.distanceFrom(enemy2);
     }
 }

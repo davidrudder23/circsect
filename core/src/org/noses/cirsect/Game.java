@@ -41,6 +41,10 @@ public class Game implements InputProcessor  {
     int numEnemiesToBeKilled;
     int numEnemiesTotal;
 
+    float radius;
+
+    GlyphLayout layout;
+
     public Game(CirsectGame parent) {
         this.parent = parent;
 
@@ -52,6 +56,25 @@ public class Game implements InputProcessor  {
 
         speedMultiplier = 1;
 
+        score = 0;
+
+        level = 0;
+
+        layout = new GlyphLayout();
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/score.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 48;
+        font = generator.generateFont(parameter);
+        font.getData().setScale(.07f/getSmallestDimensionPercent());
+        generator.dispose();
+
+    }
+
+    public void start() {
+
+        Gdx.input.setInputProcessor(this);
+
         timer = Timer.schedule(new Timer.Task() {
                                    @Override
                                    public void run() {
@@ -60,18 +83,8 @@ public class Game implements InputProcessor  {
                                }
                 , 0f, 1 / (10.0f * speedMultiplier));
 
-        score = 0;
-
-        level = 0;
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/score.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int)(6 / getSmallestDimensionPercent());
-        font = generator.generateFont(parameter);
-        font.getData().setScale(1f);
-        generator.dispose();
-
-        endLevel();
+        level = 1;
+        startNewLevel();
     }
 
     public void clockTick(float delay) {
@@ -119,10 +132,6 @@ public class Game implements InputProcessor  {
         }
     }
 
-    public void checkForHit() {
-        parent.addHit(1);
-    }
-
     public void render(final Batch batch) {
         for (Enemy enemy: enemies) {
             enemy.render(batch);
@@ -133,7 +142,6 @@ public class Game implements InputProcessor  {
         }
 
         batch.begin();
-        GlyphLayout layout = new GlyphLayout(); //dont do this every frame! Store it as member
         layout.setText(font, "Level: "+level);
         font.draw(batch, "Score: "+score, 30, Gdx.graphics.getHeight() - font.getLineHeight());
         font.draw(batch, "Level: "+level, Gdx.graphics.getWidth() - layout.width - 30, Gdx.graphics.getHeight() - font.getLineHeight());
@@ -221,6 +229,7 @@ public class Game implements InputProcessor  {
         explosions.add(explosion);
 
         score++;
+        parent.playPoof();
     }
 
     private void endLevel() {
@@ -229,14 +238,21 @@ public class Game implements InputProcessor  {
 
         if (enemies.size() > (numEnemiesTotal - numEnemiesToBeKilled)) {
             // failure
-            System.exit(1);
+            parent.endGame();
         } else {
-            enemies.clear();
-            numEnemiesTotal = level * 3;
-            numEnemiesToBeKilled = numEnemiesTotal/2;
-            for (int i = 0; i < numEnemiesTotal; i++) {
-                enemies.add(EnemyMaker.getInstance(this).makeEnemy(enemies));
-            }
+            startNewLevel();
         }
+    }
+
+    private void startNewLevel() {
+        enemies.clear();
+
+        numEnemiesTotal = level * 3;
+        numEnemiesToBeKilled = numEnemiesTotal/2;
+        for (int i = 0; i < numEnemiesTotal; i++) {
+            enemies.add(EnemyMaker.getInstance(this).makeEnemy(enemies));
+        }
+
+        System.out.println("Have "+enemies.size()+" enemies");
     }
 }

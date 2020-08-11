@@ -7,16 +7,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public abstract class Circle {
 
     int x, y;
     float radius;
-
     Color color;
+    ShapeRenderer sr;
+
+    protected Circle(int x, int y, float radius, Color color) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        sr = new ShapeRenderer();
+
+        System.out.println("radius="+radius);
+    }
+
 
     public void render(Batch batch) {
-        ShapeRenderer sr = new ShapeRenderer();
 
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(color);
@@ -24,8 +33,8 @@ public abstract class Circle {
         sr.end();
     }
 
-    public int distanceFrom(Circle circle) {
-        return (int) Math.sqrt(
+    public float distanceFrom(Circle circle) {
+        return (float)Math.sqrt(
                 ((getX() - circle.getX()) * (getX() - circle.getX())) +
                         ((getY() - circle.getY()) * (getY() - circle.getY()))
         );
