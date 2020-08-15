@@ -1,5 +1,14 @@
-These are the instructions.  This is a long-ish paragraph.  ABC 123, etc etc. 
+How To Play Cirsect
+Cirsect is a calming, meditative game with very simple rules.  You have to pop floating dots on the screen.  You do this by placing a single explosion on the screen.  If a dot collides with it, it will explode.  Only by chaining explosions together can you win!
 
-Another line.
 
-Another line
+You get one move per level
+You can place one, and only one, explosion on each level. When all the explosions are over, if you have popped enough dots, you will advance to the next level.
+
+
+No ads, no in-game purchases
+This is a side project for me and I'm not looking to make any money off it.
+
+
+Made with LibGDX
+This is a Java project, written in libgdx.  Please support such an excellent project.
