@@ -56,6 +56,10 @@ public class InstructionsScreen implements Screen {
         }
 
         textArea = new TextArea(text, skin);
+
+        TextField.TextFieldStyle textAreaStyle = skin.get(TextField.TextFieldStyle.class);
+        textAreaStyle.font.getData().setScale(.18f/parent.smallestDimensionPercent);
+        textAreaStyle.font.getData().markupEnabled = true;
         textArea.setFillParent(false);
         textArea.setHeight(10);
 

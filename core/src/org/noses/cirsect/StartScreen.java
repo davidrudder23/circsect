@@ -37,7 +37,7 @@ public class StartScreen {
         Skin skin = new Skin(Gdx.files.internal("skin/comic/skin/comic-ui.json"));
 
         TextButton.TextButtonStyle buttonStyle = skin.get(TextButton.TextButtonStyle.class);
-        buttonStyle.font.getData().setScale(.2f/parent.smallestDimensionPercent);
+        buttonStyle.font.getData().setScale(.15f/parent.smallestDimensionPercent);
 
         startButton = new TextButton("Start", skin);
 
