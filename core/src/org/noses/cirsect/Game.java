@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Timer;
 import lombok.Data;
 
@@ -45,8 +46,13 @@ public class Game implements InputProcessor  {
 
     GlyphLayout layout;
 
+    Skin skin;
+
     public Game(CirsectGame parent) {
         this.parent = parent;
+
+        skin = new Skin(Gdx.files.internal("skin/level-plane/skin/level-plane-ui.json"));
+
 
         enemies = new ArrayList<>();
 

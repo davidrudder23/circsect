@@ -34,15 +34,15 @@ public class StartScreen {
 
         stage.addActor(backgroundImage);
 
-        Skin skin = new Skin(Gdx.files.internal("skin/comic/skin/comic-ui.json"));
+        Skin skin = parent.game.getSkin();
 
         TextButton.TextButtonStyle buttonStyle = skin.get(TextButton.TextButtonStyle.class);
         buttonStyle.font.getData().setScale(.15f/parent.smallestDimensionPercent);
 
         startButton = new TextButton("Start", skin);
 
-        startButton.setWidth(Gdx.graphics.getWidth() * .4f);
-        startButton.setHeight(Gdx.graphics.getWidth() * .2f);
+        startButton.setWidth(Gdx.graphics.getWidth() * .2f);
+        startButton.setHeight(Gdx.graphics.getWidth() * .1f);
 
         startButton.setX((float)((stage.getWidth()- startButton.getWidth())*.5) );
         startButton.setY(stage.getHeight()*.1f);
@@ -56,8 +56,8 @@ public class StartScreen {
 
         instructionsButton = new TextButton("Instructions", skin);
 
-        instructionsButton.setWidth(Gdx.graphics.getWidth() * .6f);
-        instructionsButton.setHeight(Gdx.graphics.getWidth() * .2f);
+        instructionsButton.setWidth(Gdx.graphics.getWidth() * .3f);
+        instructionsButton.setHeight(Gdx.graphics.getWidth() * .1f);
 
         instructionsButton.setX((float)((stage.getWidth()- instructionsButton.getWidth())*.5));
         instructionsButton.setY(stage.getHeight()*.3f);

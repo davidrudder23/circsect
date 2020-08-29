@@ -26,7 +26,7 @@ public class InstructionsScreen implements Screen {
     }
 
     public void create() {
-        Skin skin = new Skin(Gdx.files.internal("skin/comic/skin/comic-ui.json"));
+        Skin skin = parent.game.getSkin();
 
         stage = new Stage();
 
